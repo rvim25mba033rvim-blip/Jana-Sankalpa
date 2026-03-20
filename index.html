@@ -264,11 +264,82 @@
     .vm-card p  { font-size: 15px; line-height: 1.82; opacity: 0.9; }
     .vm-card::after { content: '✦'; font-size: 180px; position: absolute; right: -16px; bottom: -48px; opacity: 0.06; line-height: 1; }
     .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .program-card { background: var(--cream); border: 1px solid rgba(204,34,34,0.13); border-radius: 18px; padding: 28px 24px; transition: transform 0.3s, box-shadow 0.3s; }
-    .program-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(204,34,34,0.13); }
+
+    /* Flip card styles */
+    .program-card {
+      background: transparent;
+      perspective: 1000px;
+      height: 280px;
+      cursor: pointer;
+      border-radius: 18px;
+    }
+
+    .program-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .program-card:hover .program-card-inner,
+    .program-card.active .program-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .program-card-front,
+    .program-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 28px 24px;
+    }
+
+    .program-card-front {
+      background: var(--cream);
+      border: 1px solid rgba(204,34,34,0.13);
+      box-shadow: 0 4px 18px rgba(204,34,34,0.06);
+    }
+
+    .program-card-back {
+      background: linear-gradient(135deg, var(--red), var(--red-deep));
+      color: var(--white);
+      transform: rotateY(180deg);
+      overflow: hidden;
+    }
+
+    .program-card-back img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0.9;
+    }
+
+    .program-card-back-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px;
+      background: rgba(204,34,34,0.85);
+      border-radius: 12px;
+    }
+
     .program-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, var(--red-pale), rgba(204,34,34,0.10)); border: 1.5px solid rgba(204,34,34,0.18); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 18px; }
-    .program-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
-    .program-card p  { font-size: 14px; line-height: 1.72; color: var(--muted); }
+    .program-card-front h4 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+    .program-card-front p  { font-size: 14px; line-height: 1.72; color: var(--muted); }
+    .program-card-back h4 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .program-card-back p  { font-size: 14px; line-height: 1.72; color: rgba(255,255,255,0.95); }
 
     #help { background: linear-gradient(160deg, var(--dark) 0%, #2A0808 100%); position: relative; overflow: hidden; }
     .glow { position: absolute; border-radius: 50%; pointer-events: none; }
@@ -614,12 +685,107 @@
       </div>
 
       <div class="programs-grid">
-        <div class="program-card reveal"><div class="program-icon">🏠</div><h4>Shelter Home</h4><p>Niraashritara Ashrama provides a safe, dignified home for destitute and abandoned individuals in Nelamangala Taluk.</p></div>
-        <div class="program-card reveal" style="transition-delay:.07s"><div class="program-icon">🍽️</div><h4>Daily Meals</h4><p>Nutritious meals and essentials like clothing and blankets are distributed to beneficiaries and community visitors regularly.</p></div>
-        <div class="program-card reveal" style="transition-delay:.14s"><div class="program-icon">♿</div><h4>Disability Support</h4><p>Government-recognised disability welfare programmes providing assistive aids, counselling, and social inclusion support.</p></div>
-        <div class="program-card reveal" style="transition-delay:.21s"><div class="program-icon">🎉</div><h4>Community Events</h4><p>Cultural celebrations like Kannada Rajyotsava and Basavanna Jayanti to foster community bonds and shared cultural identity.</p></div>
-        <div class="program-card reveal" style="transition-delay:.28s"><div class="program-icon">👵</div><h4>Elder Care</h4><p>Comprehensive support for the elderly including companionship, health monitoring, and family reunification efforts.</p></div>
-        <div class="program-card reveal" style="transition-delay:.35s"><div class="program-icon">🤲</div><h4>Donation Drives</h4><p>Regular drives collecting clothes, food, and funds — channelled directly to those in need across the community.</p></div>
+        <div class="program-card reveal">
+          <div class="program-card-inner">
+            <div class="program-card-front">
+              <div class="program-icon">🏠</div>
+              <h4>Shelter Home</h4>
+              <p>Niraashritara Ashrama provides a safe, dignified home for destitute and abandoned individuals in Nelamangala Taluk.</p>
+            </div>
+            <div class="program-card-back">
+              <img src="images/about/building.jpg" alt="Shelter Home" loading="lazy" decoding="async" />
+              <div class="program-card-back-content">
+                <h4>Our Shelter</h4>
+                <p>A safe haven providing shelter, dignity, and hope to those who need it most.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-card reveal" style="transition-delay:.07s">
+          <div class="program-card-inner">
+            <div class="program-card-front">
+              <div class="program-icon">🍽️</div>
+              <h4>Daily Meals</h4>
+              <p>Nutritious meals and essentials like clothing and blankets are distributed to beneficiaries and community visitors regularly.</p>
+            </div>
+            <div class="program-card-back">
+              <img src="images/activities/activities_banner.jpg" alt="Daily Meals" loading="lazy" decoding="async" />
+              <div class="program-card-back-content">
+                <h4>Feeding Hope</h4>
+                <p>Nutritious meals served daily to our residents and community members in need.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-card reveal" style="transition-delay:.14s">
+          <div class="program-card-inner">
+            <div class="program-card-front">
+              <div class="program-icon">♿</div>
+              <h4>Disability Support</h4>
+              <p>Government-recognised disability welfare programmes providing assistive aids, counselling, and social inclusion support.</p>
+            </div>
+            <div class="program-card-back">
+              <img src="images/awards/govt_award.jpg" alt="Disability Support" loading="lazy" decoding="async" />
+              <div class="program-card-back-content">
+                <h4>Empowering Lives</h4>
+                <p>Government-recognized programs supporting differently-abled individuals with dignity and care.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-card reveal" style="transition-delay:.21s">
+          <div class="program-card-inner">
+            <div class="program-card-front">
+              <div class="program-icon">🎉</div>
+              <h4>Community Events</h4>
+              <p>Cultural celebrations like Kannada Rajyotsava and Basavanna Jayanti to foster community bonds and shared cultural identity.</p>
+            </div>
+            <div class="program-card-back">
+              <img src="images/awards/award_certificate.jpg" alt="Community Events" loading="lazy" decoding="async" />
+              <div class="program-card-back-content">
+                <h4>Cultural Celebrations</h4>
+                <p>Bringing our community together through cultural events and celebrations.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-card reveal" style="transition-delay:.28s">
+          <div class="program-card-inner">
+            <div class="program-card-front">
+              <div class="program-icon">👵</div>
+              <h4>Elder Care</h4>
+              <p>Comprehensive support for the elderly including companionship, health monitoring, and family reunification efforts.</p>
+            </div>
+            <div class="program-card-back">
+              <img src="images/about/building.jpg" alt="Elder Care" loading="lazy" decoding="async" />
+              <div class="program-card-back-content">
+                <h4>Caring for Elders</h4>
+                <p>Providing comprehensive care, companionship, and dignity to our elderly residents.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-card reveal" style="transition-delay:.35s">
+          <div class="program-card-inner">
+            <div class="program-card-front">
+              <div class="program-icon">🤲</div>
+              <h4>Donation Drives</h4>
+              <p>Regular drives collecting clothes, food, and funds — channelled directly to those in need across the community.</p>
+            </div>
+            <div class="program-card-back">
+              <img src="images/activities/activities_banner.jpg" alt="Donation Drives" loading="lazy" decoding="async" />
+              <div class="program-card-back-content">
+                <h4>Community Support</h4>
+                <p>Regular donation drives helping us serve more people in our community.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -848,6 +1014,38 @@
     heroVideo?.addEventListener('error', () => {
       heroVideo.style.display = 'none';
     }, { once: true });
+
+    // Flip card mobile interactions
+    const programCards = document.querySelectorAll('.program-card');
+
+    // Check if device is touch-enabled
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (isTouchDevice) {
+      programCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          // Toggle active class on clicked card
+          const isActive = this.classList.contains('active');
+
+          // Remove active class from all cards
+          programCards.forEach(c => c.classList.remove('active'));
+
+          // If card wasn't active, make it active
+          if (!isActive) {
+            this.classList.add('active');
+          }
+        });
+      });
+
+      // Close card when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.program-card')) {
+          programCards.forEach(card => card.classList.remove('active'));
+        }
+      });
+    }
   })();
 </script>
 </body>
