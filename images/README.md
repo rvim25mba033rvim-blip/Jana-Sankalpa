@@ -7,32 +7,37 @@ This folder contains all images used in the Jana Sankalpa Seva Charitable Trust 
 ```
 images/
 ├── README.md           # This file
-├── hero/              # Hero section images and videos
-├── about/             # About section images
-├── team/              # Team member photos
-├── awards/            # Award certificates and recognition images
-└── activities/        # Activity and event photos
+├── hero/              # Hero section images and videos (+ subfolder README)
+├── about/             # About section images (+ subfolder README)
+├── team/              # Team member photos (+ subfolder README)
+├── awards/            # Award certificates and recognition images (+ subfolder README)
+└── activities/        # Activity and event photos (+ subfolder README)
 ```
 
-## Image Files to Add
+Each subfolder contains its own README.md with specific instructions and current status.
 
-### Hero Section (`hero/`)
-- `hero_video.mp4` - Background video for hero section
-- `trust_banner.jpg` - Fallback banner image for hero video
+## Current Image Status
 
-### About Section (`about/`)
-- `building.jpg` - Main ashrama building photo
-- `activities_banner.jpg` - Community activities photo
+### Hero Section (`hero/`) ⚠️ 1 Missing
+- ✅ `trust_banner.jpg` - Fallback banner image for hero video
+- ⚠️ `hero_video.mp4` - Background video for hero section (MISSING)
 
-### Team Section (`team/`)
-- `jyothi.jpg` - Smt. Jyothi S. (Chairperson)
-- `narasimhaiah.jpg` - Dr. B. Narasimhaiah (President)
-- `geetha.jpg` - Shri Devarakumar Geetha (Secretary)
-- `naveen.jpg` - Shri Naveen Vajrapaksha (Vice President)
+### About Section (`about/`) ✅ Complete
+- ✅ `building.jpg` - Main ashrama building photo
+- ✅ `activities_banner.jpg` - Community activities photo
 
-### Awards Section (`awards/`)
-- `award_certificate.jpg` - Praja Seva Kannadada Ratna certificate
-- `govt_award.jpg` - Karnataka Government recognition certificate
+### Activities Section (`activities/`) ✅ Complete
+- ✅ `activities_banner.jpg` - Community activities and programs photo
+
+### Team Section (`team/`) ⚠️ 4 Missing
+- ⚠️ `jyothi.jpg` - Smt. Jyothi S. (Chairperson) (MISSING)
+- ⚠️ `narasimhaiah.jpg` - Dr. B. Narasimhaiah (President) (MISSING)
+- ⚠️ `geetha.jpg` - Shri Devarakumar Geetha (Secretary) (MISSING)
+- ⚠️ `naveen.jpg` - Shri Naveen Vajrapaksha (Vice President) (MISSING)
+
+### Awards Section (`awards/`) ✅ Complete
+- ✅ `award_certificate.jpg` - Praja Seva Kannadada Ratna certificate
+- ✅ `govt_award.jpg` - Karnataka Government recognition certificate
 
 ## Adding New Images
 
