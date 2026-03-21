@@ -347,10 +347,20 @@
     donationSlider.addEventListener('input', (e) => {
       syncAmountValues(e.target.value);
     });
+
+    // Also handle change event for better compatibility
+    donationSlider.addEventListener('change', (e) => {
+      syncAmountValues(e.target.value);
+    });
   }
 
   if (donationAmountInput) {
     donationAmountInput.addEventListener('input', (e) => {
+      syncAmountValues(e.target.value);
+    });
+
+    // Also handle change event
+    donationAmountInput.addEventListener('change', (e) => {
       syncAmountValues(e.target.value);
     });
 
