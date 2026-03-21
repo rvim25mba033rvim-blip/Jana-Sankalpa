@@ -794,13 +794,45 @@
         <div class="help-card reveal" style="transition-delay:.24s"><div class="help-icon">📢</div><h3>Spread the Word</h3><p>Share our mission with family and friends. Awareness brings donors, volunteers, and hope to those who need it most.</p></div>
       </div>
 
+      <!-- Interactive Donation Amount Selector -->
+      <div class="donation-interactive reveal">
+        <h3>💳 Choose Your Donation Amount</h3>
+        <p class="donation-subtitle">Your donation is directly used for the welfare of our residents at the ashrama.</p>
+
+        <div class="donation-amount-display">
+          <span class="currency-symbol">₹</span>
+          <input type="number" id="donationAmountInput" class="amount-input" value="1000" min="200" max="100000" step="100">
+        </div>
+
+        <div class="donation-slider-container">
+          <input type="range" id="donationSlider" class="donation-slider" min="200" max="100000" value="1000" step="100">
+          <div class="slider-labels">
+            <span>₹200</span>
+            <span>₹1,00,000</span>
+          </div>
+        </div>
+
+        <div class="donation-impact" id="donationImpact">
+          <div class="impact-icon">🍽️</div>
+          <p class="impact-text">Your donation of <strong>₹1,000</strong> helps provide <strong>nutritious meals</strong> for our residents</p>
+        </div>
+
+        <button class="donate-now-btn" id="donateNowBtn">
+          <span class="btn-icon">💚</span>
+          <span class="btn-text">Donate Now via UPI</span>
+        </button>
+
+        <div class="donation-info-text">
+          <p>✓ Secure UPI Payment • Direct to Jana Sankalpa Seva Charitable Trust</p>
+        </div>
+      </div>
+
       <div class="donate-box reveal">
-        <h3>💳 Donate via Bank Transfer or UPI</h3>
-        <p>Your donation is directly used for the welfare of our residents at the ashrama.</p>
+        <h3>🏦 Bank Transfer Details</h3>
         <div class="bank-grid">
           <div class="bank-item"><label>Account Name</label><span>Jana Sankalpa Seva Charitable Trust</span></div>
           <div class="bank-item"><label>Reg. No.</label><span>NMG-4-00016-2024-25</span></div>
-          <div class="bank-item"><label>UPI / BHIM Pay</label><span>Scan QR code at the Ashrama</span></div>
+          <div class="bank-item"><label>UPI ID</label><span id="upiIdDisplay">janasankalpa@upi</span></div>
           <div class="bank-item"><label>Address</label><span>Pragati Layout, Ganeshanagudi, Nelamangala – 562123</span></div>
         </div>
         <p style="font-size:15px;margin-bottom:18px;color:rgba(28,10,10,0.68)">📞 Call us to arrange a donation or visit:</p>

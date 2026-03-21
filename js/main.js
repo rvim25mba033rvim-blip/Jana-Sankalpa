@@ -288,4 +288,107 @@
     }
   });
 
+  /* ── Interactive Donation Amount Slider ─────────────────────── */
+  const donationSlider = qs('#donationSlider');
+  const donationAmountInput = qs('#donationAmountInput');
+  const donationImpact = qs('#donationImpact');
+  const donateNowBtn = qs('#donateNowBtn');
+
+  // UPI ID configuration - Change this to the actual UPI ID
+  const UPI_ID = 'janasankalpa@upi'; // Replace with actual UPI ID
+  const PAYEE_NAME = 'Jana Sankalpa Seva Charitable Trust';
+
+  // Impact messages based on donation amount
+  const impactLevels = [
+    { min: 200, max: 499, icon: '🧵', text: 'helps provide <strong>basic clothing items</strong> for our residents' },
+    { min: 500, max: 999, icon: '👕', text: 'helps provide <strong>quality clothes and essentials</strong> for our residents' },
+    { min: 1000, max: 2499, icon: '🍽️', text: 'helps provide <strong>nutritious meals</strong> for our residents' },
+    { min: 2500, max: 4999, icon: '🏥', text: 'helps provide <strong>medical care and medicines</strong> for our residents' },
+    { min: 5000, max: 9999, icon: '🎒', text: 'helps provide <strong>daily necessities and care supplies</strong> for our residents' },
+    { min: 10000, max: 24999, icon: '🛏️', text: 'helps provide <strong>accommodation and living facilities</strong> for multiple residents' },
+    { min: 25000, max: 49999, icon: '🏠', text: 'helps with <strong>facility maintenance and infrastructure</strong> improvements' },
+    { min: 50000, max: 99999, icon: '💚', text: 'makes a <strong>significant impact on multiple welfare programs</strong> at the ashrama' },
+    { min: 100000, max: Infinity, icon: '🌟', text: 'enables us to <strong>transform lives and expand our services</strong> substantially' }
+  ];
+
+  function formatIndianCurrency(amount) {
+    return amount.toLocaleString('en-IN');
+  }
+
+  function updateImpactMessage(amount) {
+    if (!donationImpact) return;
+
+    const level = impactLevels.find(l => amount >= l.min && amount <= l.max);
+    if (!level) return;
+
+    const iconEl = donationImpact.querySelector('.impact-icon');
+    const textEl = donationImpact.querySelector('.impact-text');
+
+    if (iconEl) iconEl.textContent = level.icon;
+    if (textEl) {
+      textEl.innerHTML = `Your donation of <strong>₹${formatIndianCurrency(amount)}</strong> ${level.text}`;
+    }
+  }
+
+  function syncAmountValues(value) {
+    const amount = parseInt(value, 10);
+    if (isNaN(amount)) return;
+
+    // Ensure amount is within bounds
+    const boundedAmount = Math.max(200, Math.min(100000, amount));
+
+    if (donationSlider) donationSlider.value = boundedAmount;
+    if (donationAmountInput) donationAmountInput.value = boundedAmount;
+
+    updateImpactMessage(boundedAmount);
+  }
+
+  if (donationSlider) {
+    donationSlider.addEventListener('input', (e) => {
+      syncAmountValues(e.target.value);
+    });
+  }
+
+  if (donationAmountInput) {
+    donationAmountInput.addEventListener('input', (e) => {
+      syncAmountValues(e.target.value);
+    });
+
+    // Prevent non-numeric input
+    donationAmountInput.addEventListener('keypress', (e) => {
+      if (e.key < '0' || e.key > '9') {
+        e.preventDefault();
+      }
+    });
+  }
+
+  // UPI payment integration
+  if (donateNowBtn) {
+    donateNowBtn.addEventListener('click', () => {
+      const amount = donationAmountInput ? parseInt(donationAmountInput.value, 10) : 1000;
+
+      if (isNaN(amount) || amount < 200) {
+        showToast('Please enter a valid amount (minimum ₹200)', 'error');
+        return;
+      }
+
+      // Generate UPI payment link
+      // Format: upi://pay?pa=UPI_ID&pn=PAYEE_NAME&am=AMOUNT&cu=INR&tn=NOTE
+      const upiUrl = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(PAYEE_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent('Donation to Jana Sankalpa')}`;
+
+      // Try to open UPI app
+      window.location.href = upiUrl;
+
+      // Show confirmation message
+      setTimeout(() => {
+        showToast(`🙏 Opening UPI payment for ₹${formatIndianCurrency(amount)}`, 'success');
+      }, 500);
+    });
+  }
+
+  // Initialize with default value
+  if (donationAmountInput) {
+    updateImpactMessage(parseInt(donationAmountInput.value, 10) || 1000);
+  }
+
 })();
