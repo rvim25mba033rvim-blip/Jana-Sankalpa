@@ -914,8 +914,21 @@ button {
   border: 1px solid rgba(245, 200, 0, 0.25);
   border-radius: 24px;
   padding: 3rem 2.5rem;
-  margin-bottom: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.donation-interactive::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(245, 200, 0, 0.3), transparent);
 }
 
 .donation-interactive h3 {
@@ -1129,7 +1142,20 @@ button {
   border: 1px solid rgba(245, 200, 0, 0.3);
   border-radius: 20px;
   padding: 2.5rem;
+  margin-top: 3rem;
   color: rgba(255, 255, 255, 0.9);
+  position: relative;
+}
+
+.donate-box::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(245, 200, 0, 0.3), transparent);
 }
 
 .donate-box h3 {
