@@ -4,15 +4,20 @@ This folder contains images for the activities and programs section of the websi
 
 ## Current Files
 
-- `activities_banner.jpg` - General activities and community engagement photo
+- `daily_meals.jpg` - Photo of meal distribution or dining area
+- `donation_drive.jpg` - Photo of donation collection or distribution
+- `community_activities.jpg` - General community engagement activities
+- `disability_of.jpg` - Disability care program photo
+- `elder_of.jpg` - Elder care program photo
+- `shelter_home.jpg` - Shelter home facility photo
 
 ## Referenced in HTML
 
 The following images from this folder are referenced in `index.html`:
 
-- **Line 541**: About section - `activities_banner.jpg`
-- **Line 713**: Daily Meals program card (flip card back) - `activities_banner.jpg`
-- **Line 781**: Donation Drives program card (flip card back) - `activities_banner.jpg`
+- Various program-specific images are used for program cards throughout the site
+
+**Note**: The `activities_banner.jpg` is now located in `images/about/` folder and is referenced from there.
 
 ## Suggested Additional Images
 
