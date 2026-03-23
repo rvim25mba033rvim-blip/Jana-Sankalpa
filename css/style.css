@@ -973,6 +973,22 @@ button {
   color: var(--white);
 }
 
+.bank-item a {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #F5C800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bank-item a:hover {
+  color: #FFD700;
+  text-decoration: underline;
+  transform: translateX(2px);
+}
+
 .phone-row {
   display: flex;
   flex-wrap: wrap;
