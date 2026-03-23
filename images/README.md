@@ -7,6 +7,7 @@ This folder contains all images used in the Jana Sankalpa Seva Charitable Trust 
 ```
 images/
 ├── README.md           # This file
+├── logo/              # Logo images for header section (+ subfolder README)
 ├── hero/              # Hero section images and videos (+ subfolder README)
 ├── about/             # About section images (+ subfolder README)
 ├── team/              # Team member photos (+ subfolder README)
@@ -17,6 +18,9 @@ images/
 Each subfolder contains its own README.md with specific instructions and current status.
 
 ## Current Image Status
+
+### Logo Section (`logo/`) ⚠️ Missing
+- ⚠️ `logo.png` - Main logo for header section (MISSING - Placeholder configured)
 
 ### Hero Section (`hero/`) ⚠️ 1 Missing
 - ✅ `trust_banner.jpg` - Fallback banner image for hero video

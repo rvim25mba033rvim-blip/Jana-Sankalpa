@@ -82,6 +82,10 @@
     }
     nav.scrolled { background: rgba(255,248,238,0.97); box-shadow: 0 4px 28px rgba(204,34,34,0.10); }
     .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-image {
+      width: 44px; height: 44px; min-width: 44px; object-fit: contain;
+      border-radius: 12px; box-shadow: 0 4px 14px rgba(204,34,34,0.20);
+    }
     .logo-mark {
       width: 44px; height: 44px; min-width: 44px; border-radius: 12px;
       background: linear-gradient(135deg, var(--red), var(--red-deep));
@@ -474,6 +478,7 @@
 
 <nav id="nav" aria-label="Primary">
   <a class="nav-logo" href="#home" aria-label="Go to top">
+    <img src="images/logo/logo.png" alt="Jana Sankalpa Logo" class="logo-image" onerror="this.style.display='none'">
     <div class="logo-mark" aria-hidden="true">🙏</div>
     <div class="logo-text">
       <strong>Jana Sankalpa Seva</strong>
