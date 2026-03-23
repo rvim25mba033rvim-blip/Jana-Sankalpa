@@ -486,6 +486,7 @@
     <li><a href="#impact">Our Impact</a></li>
     <li><a href="#programs">Programs</a></li>
     <li><a href="#help">Help Us</a></li>
+    <li><a href="#donation-interactive">Donate</a></li>
     <li><a href="#involve" class="nav-cta">Get Involved</a></li>
   </ul>
   <button class="hamburger" id="ham" aria-label="Open menu" aria-expanded="false" aria-controls="mob">
@@ -499,6 +500,7 @@
   <a href="#impact" onclick="closeMob()">Our Impact</a>
   <a href="#programs" onclick="closeMob()">Programs</a>
   <a href="#help" onclick="closeMob()">Help Us</a>
+  <a href="#donation-interactive" onclick="closeMob()">Donate</a>
   <a href="#awards" onclick="closeMob()">Awards</a>
   <a href="#involve" onclick="closeMob()" class="m-cta">🙏 Get Involved</a>
 </nav>
@@ -845,6 +847,164 @@
     </div>
   </section>
 
+  <section id="donation-interactive" style="background: linear-gradient(160deg, #1a0505 0%, #2A0808 100%); position: relative; overflow: hidden; padding: 96px 24px; scroll-margin-top: 90px;">
+    <div style="position: absolute; width:600px; height:600px; top:-200px; left:-200px; background:radial-gradient(circle,rgba(245,200,0,0.11) 0%,transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+    <div style="position: absolute; width:500px; height:500px; bottom:-150px; right:-150px; background:radial-gradient(circle,rgba(204,34,34,0.18) 0%,transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+
+    <div class="container" style="position: relative; z-index: 1;">
+      <div class="reveal" style="text-align: center; margin-bottom: 52px;">
+        <div class="section-label" style="color: #F5C800;">Make an Impact</div>
+        <h2 class="section-title" style="color: var(--white);">Interactive <span style="color:#F5C800">Donation</span> Tool</h2>
+        <p class="section-body" style="color: rgba(255,255,255,0.56); margin: 0 auto;">Choose your contribution amount and see the direct impact of your generosity on our mission.</p>
+      </div>
+
+      <div class="reveal" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(245, 200, 0, 0.25); border-radius: 24px; padding: 3rem 2.5rem; max-width: 800px; margin: 0 auto; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);">
+        <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--white); text-align: center;">💳 Choose Your Donation Amount</h3>
+        <p style="text-align: center; color: rgba(255, 255, 255, 0.75); font-size: 1rem; margin-bottom: 2.5rem;">Your donation is directly used for the welfare of our residents at the ashrama.</p>
+
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 2rem;">
+          <span style="font-size: 2.5rem; font-weight: 700; color: #F5C800;">₹</span>
+          <input type="number" id="donationAmountInputNew" style="font-size: 3rem; font-weight: 800; color: var(--white); background: transparent; border: none; text-align: center; width: 300px; outline: none; font-family: inherit;" value="1000" min="200" max="100000" step="100">
+        </div>
+
+        <div style="margin-bottom: 2.5rem;">
+          <input type="range" id="donationSliderNew" style="width: 100%; height: 8px; border-radius: 5px; background: rgba(255, 255, 255, 0.15); outline: none; -webkit-appearance: none; appearance: none; cursor: pointer;" min="200" max="100000" value="1000" step="100">
+          <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); font-weight: 600;">
+            <span>₹200</span>
+            <span>₹1,00,000</span>
+          </div>
+        </div>
+
+        <div id="donationImpactNew" style="background: rgba(245, 200, 0, 0.1); border: 1px solid rgba(245, 200, 0, 0.2); border-radius: 16px; padding: 1.5rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 1.5rem; min-height: 80px;">
+          <div style="font-size: 3rem; flex-shrink: 0;">🍽️</div>
+          <p style="font-size: 1.1rem; line-height: 1.5; color: var(--white); margin: 0;">
+            Your donation of <strong style="font-weight: 800; color: #F5C800;">₹1,000</strong> helps provide <strong style="font-weight: 800; color: #F5C800;">nutritious meals</strong> for our residents
+          </p>
+        </div>
+
+        <button id="donateNowBtnNew" style="width: 100%; background: linear-gradient(135deg, #F5C800 0%, #FFD700 100%); color: #1a0505; border: none; border-radius: 12px; padding: 1.25rem 2rem; font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.75rem; box-shadow: 0 4px 16px rgba(245, 200, 0, 0.4); transition: all 0.3s ease;">
+          <span style="font-size: 1.5rem;">💚</span>
+          <span>Donate Now via UPI</span>
+        </button>
+
+        <div style="text-align: center; margin-top: 1rem;">
+          <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.65); margin: 0;">✓ Secure UPI Payment • Direct to Jana Sankalpa Seva Charitable Trust</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      const slider = document.getElementById('donationSliderNew');
+      const input = document.getElementById('donationAmountInputNew');
+      const impact = document.getElementById('donationImpactNew');
+      const btn = document.getElementById('donateNowBtnNew');
+
+      const impactLevels = [
+        { min: 200, max: 499, icon: '🧵', text: 'helps provide <strong style="font-weight: 800; color: #F5C800;">basic clothing items</strong> for our residents' },
+        { min: 500, max: 999, icon: '👕', text: 'helps provide <strong style="font-weight: 800; color: #F5C800;">quality clothes and essentials</strong> for our residents' },
+        { min: 1000, max: 2499, icon: '🍽️', text: 'helps provide <strong style="font-weight: 800; color: #F5C800;">nutritious meals</strong> for our residents' },
+        { min: 2500, max: 4999, icon: '🏥', text: 'helps provide <strong style="font-weight: 800; color: #F5C800;">medical care and medicines</strong> for our residents' },
+        { min: 5000, max: 9999, icon: '🎒', text: 'helps provide <strong style="font-weight: 800; color: #F5C800;">daily necessities and care supplies</strong> for our residents' },
+        { min: 10000, max: 24999, icon: '🛏️', text: 'helps provide <strong style="font-weight: 800; color: #F5C800;">accommodation and living facilities</strong> for multiple residents' },
+        { min: 25000, max: 49999, icon: '🏠', text: 'helps with <strong style="font-weight: 800; color: #F5C800;">facility maintenance and infrastructure</strong> improvements' },
+        { min: 50000, max: 99999, icon: '💚', text: 'makes a <strong style="font-weight: 800; color: #F5C800;">significant impact on multiple welfare programs</strong> at the ashrama' },
+        { min: 100000, max: Infinity, icon: '🌟', text: 'enables us to <strong style="font-weight: 800; color: #F5C800;">transform lives and expand our services</strong> substantially' }
+      ];
+
+      function updateImpact(amount) {
+        const level = impactLevels.find(l => amount >= l.min && amount <= l.max);
+        if (level && impact) {
+          const iconEl = impact.querySelector('div');
+          const textEl = impact.querySelector('p');
+          if (iconEl) iconEl.textContent = level.icon;
+          if (textEl) {
+            textEl.innerHTML = 'Your donation of <strong style="font-weight: 800; color: #F5C800;">₹' + amount.toLocaleString('en-IN') + '</strong> ' + level.text;
+          }
+        }
+      }
+
+      function sync(value) {
+        const amount = Math.max(200, Math.min(100000, parseInt(value) || 1000));
+        slider.value = amount;
+        input.value = amount;
+        updateImpact(amount);
+      }
+
+      slider.addEventListener('input', (e) => sync(e.target.value));
+      input.addEventListener('input', (e) => sync(e.target.value));
+
+      btn.addEventListener('click', () => {
+        const amount = parseInt(input.value) || 1000;
+        const upiUrl = 'upi://pay?pa=janasankalpa@upi&pn=Jana%20Sankalpa%20Seva%20Charitable%20Trust&am=' + amount + '&cu=INR&tn=Donation%20to%20Jana%20Sankalpa';
+        window.location.href = upiUrl;
+      });
+
+      // Add hover effect to button
+      btn.addEventListener('mouseenter', () => {
+        btn.style.background = 'linear-gradient(135deg, #FFD700 0%, #F5C800 100%)';
+        btn.style.transform = 'translateY(-2px)';
+        btn.style.boxShadow = '0 6px 24px rgba(245, 200, 0, 0.6)';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.background = 'linear-gradient(135deg, #F5C800 0%, #FFD700 100%)';
+        btn.style.transform = 'translateY(0)';
+        btn.style.boxShadow = '0 4px 16px rgba(245, 200, 0, 0.4)';
+      });
+
+      // Style the range slider thumb
+      const style = document.createElement('style');
+      style.textContent = `
+        #donationSliderNew::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: #F5C800;
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(245, 200, 0, 0.5);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #donationSliderNew::-webkit-slider-thumb:hover {
+          transform: scale(1.2);
+          box-shadow: 0 3px 12px rgba(245, 200, 0, 0.7);
+        }
+        #donationSliderNew::-moz-range-thumb {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: #F5C800;
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(245, 200, 0, 0.5);
+          border: none;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #donationSliderNew::-moz-range-thumb:hover {
+          transform: scale(1.2);
+          box-shadow: 0 3px 12px rgba(245, 200, 0, 0.7);
+        }
+        #donationAmountInputNew::-webkit-inner-spin-button,
+        #donationAmountInputNew::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        #donationAmountInputNew[type=number] {
+          -moz-appearance: textfield;
+        }
+        @media (max-width: 768px) {
+          #donation-interactive { padding: 72px 18px !important; }
+          #donationAmountInputNew { font-size: 2.5rem !important; width: 250px !important; }
+        }
+        @media (max-width: 480px) {
+          #donationAmountInputNew { font-size: 2rem !important; width: 180px !important; }
+        }
+      `;
+      document.head.appendChild(style);
+    })();
+    </script>
+  </section>
+
   <section id="awards">
     <div class="container">
       <div class="awards-header reveal">
@@ -935,7 +1095,8 @@
         <li><a href="#impact">Our Impact</a></li>
         <li><a href="#programs">Programs</a></li>
         <li><a href="#awards">Awards</a></li>
-        <li><a href="#help">Donate</a></li>
+        <li><a href="#help">Help Us</a></li>
+        <li><a href="#donation-interactive">Donate</a></li>
         <li><a href="#involve">Get Involved</a></li>
       </ul>
     </div>
