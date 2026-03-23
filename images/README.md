@@ -31,7 +31,14 @@ Each subfolder contains its own README.md with specific instructions and current
 - ✅ `activities_banner.jpg` - Community activities photo
 
 ### Activities Section (`activities/`) ✅ Complete
-- ✅ `activities_banner.jpg` - Community activities and programs photo
+- ✅ `daily_meals.jpg` - Daily meals program photo
+- ✅ `donation_drive.jpg` - Donation drive photo
+- ✅ `community_activities.jpg` - Community activities photo
+- ✅ `disability_of.jpg` - Disability care program photo
+- ✅ `elder_of.jpg` - Elder care program photo
+- ✅ `shelter_home.jpg` - Shelter home facility photo
+
+**Note**: `activities_banner.jpg` is now located in the About section.
 
 ### Team Section (`team/`) ⚠️ 4 Missing
 - ⚠️ `jyothi.jpg` - Smt. Jyothi S. (Chairperson) (MISSING)
