@@ -232,44 +232,6 @@ button {
   height: 70px;
 }
 
-/* Logo */
-.logo {
-  display: flex;
-  align-items: center;
-  gap: .7rem;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.logo-icon {
-  width: 44px;
-  height: 44px;
-}
-
-.logo-icon-sm {
-  width: 36px;
-  height: 36px;
-}
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.logo-main {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--green-800);
-  line-height: 1.2;
-}
-
-.logo-sub {
-  font-size: .65rem;
-  font-weight: 500;
-  color: var(--gray-600);
-  letter-spacing: .03em;
-}
-
 /* Nav */
 .nav-list {
   display: flex;
