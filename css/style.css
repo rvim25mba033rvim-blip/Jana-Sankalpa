@@ -489,8 +489,8 @@ button {
 
 .about-badge-float {
   position: absolute;
-  bottom: -0.5rem;
-  right: -0.5rem;
+  bottom: -10.5rem;
+  right: -10.5rem;
   background: var(--green-600);
   color: var(--white);
   border-radius: var(--radius-md);
