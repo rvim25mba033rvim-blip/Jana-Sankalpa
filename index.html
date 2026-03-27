@@ -1224,20 +1224,78 @@
       heroVideo.style.display = 'none';
     }, { once: true });
 
-    // Flip card mobile interactions
+    // Flip card interactions with auto-flip functionality
     const programCards = document.querySelectorAll('.program-card');
 
     // Check if device is touch-enabled
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
+    // Auto-flip functionality
+    let autoFlipInterval = null;
+    let currentCardIndex = 0;
+    let autoFlipPaused = false;
+    const FLIP_DURATION = 6000; // 6 seconds per card
+
+    function startAutoFlip() {
+      if (autoFlipInterval) return; // Already running
+
+      autoFlipInterval = setInterval(() => {
+        if (!autoFlipPaused && programCards.length > 0) {
+          // Remove active class from all cards
+          programCards.forEach(c => c.classList.remove('active'));
+
+          // Add active class to current card
+          programCards[currentCardIndex].classList.add('active');
+
+          // Move to next card
+          currentCardIndex = (currentCardIndex + 1) % programCards.length;
+        }
+      }, FLIP_DURATION);
+    }
+
+    function stopAutoFlip() {
+      if (autoFlipInterval) {
+        clearInterval(autoFlipInterval);
+        autoFlipInterval = null;
+      }
+    }
+
+    function pauseAutoFlip() {
+      autoFlipPaused = true;
+    }
+
+    function resumeAutoFlip() {
+      autoFlipPaused = false;
+    }
+
+    // Start auto-flip when programs section comes into view
+    const programsSection = document.getElementById('programs');
+    if (programsSection) {
+      const programsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Start auto-flip when section is visible
+            startAutoFlip();
+          } else {
+            // Stop auto-flip when section is not visible
+            stopAutoFlip();
+            // Reset all cards
+            programCards.forEach(c => c.classList.remove('active'));
+            currentCardIndex = 0;
+          }
+        });
+      }, { threshold: 0.3 });
+
+      programsObserver.observe(programsSection);
+    }
+
     if (isTouchDevice) {
       // Show tap indicator when programs section is in view
       const tapIndicator = document.getElementById('tap-hint');
-      const programsSection = document.getElementById('programs');
       let hasInteracted = localStorage.getItem('programCardsInteracted') === 'true';
 
       if (!hasInteracted && tapIndicator && programsSection) {
-        const programsObserver = new IntersectionObserver((entries) => {
+        const tapObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting && !hasInteracted) {
               // Show the tap indicator after a brief delay
@@ -1250,12 +1308,15 @@
           });
         }, { threshold: 0.3 });
 
-        programsObserver.observe(programsSection);
+        tapObserver.observe(programsSection);
       }
 
       programCards.forEach(card => {
         card.addEventListener('click', function(e) {
           e.preventDefault();
+
+          // Pause auto-flip on user interaction
+          pauseAutoFlip();
 
           // Hide tap indicator on first interaction
           if (!hasInteracted && tapIndicator) {
@@ -1283,6 +1344,17 @@
         if (!e.target.closest('.program-card')) {
           programCards.forEach(card => card.classList.remove('active'));
         }
+      });
+    } else {
+      // Desktop: pause auto-flip on hover
+      programCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          pauseAutoFlip();
+        });
+
+        card.addEventListener('mouseleave', function() {
+          resumeAutoFlip();
+        });
       });
     }
   })();
