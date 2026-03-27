@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta" />
   <title>Jana Sankalpa Seva Charitable Trust (R)</title>
   <meta name="description" content="Jana Sankalpa Seva Charitable Trust (R), Nelamangala — shelter, nutrition, healthcare support, and dignity for the destitute, elderly, and differently-abled." />
   <meta name="theme-color" content="#CC2222" />
@@ -1237,6 +1237,36 @@
 <a href="#help" class="fab" aria-label="Jump to donation section">❤️ Donate Now</a>
 
 <script>
+  /* ── Fix desktop-mode viewport zoom on mobile ────────────────── */
+  (function() {
+    // Detect if user is in desktop mode on a mobile device
+    // Desktop mode: viewport width is large (>768px) but screen is small
+    const isDesktopModeOnMobile = window.innerWidth > 768 && window.screen.width <= 768;
+
+    if (isDesktopModeOnMobile) {
+      // Update viewport to prevent auto-zoom and fit content properly
+      const viewportMeta = document.getElementById('viewport-meta');
+      if (viewportMeta) {
+        // Set viewport to actual screen width with proper scaling
+        const scale = window.screen.width / window.innerWidth;
+        viewportMeta.setAttribute('content',
+          'width=' + window.innerWidth + ', initial-scale=' + scale + ', minimum-scale=' + scale
+        );
+      }
+
+      // Scroll to hero section on load to ensure proper view
+      window.addEventListener('load', function() {
+        // Small delay to ensure page is fully rendered
+        setTimeout(function() {
+          const hero = document.getElementById('home');
+          if (hero) {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+          }
+        }, 100);
+      });
+    }
+  })();
+
   (function () {
     const nav = document.getElementById('nav');
     const ham = document.getElementById('ham');
