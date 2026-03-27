@@ -345,6 +345,58 @@
     .program-card-back h4 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
     .program-card-back p  { font-size: 14px; line-height: 1.72; color: rgba(255,255,255,0.95); }
 
+    /* Hand gesture indicator styles */
+    .tap-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .tap-indicator.show {
+      opacity: 1;
+    }
+
+    .tap-indicator.hide {
+      opacity: 0;
+    }
+
+    .hand-icon {
+      font-size: 48px;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+      animation: tap-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes tap-pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    .tap-text {
+      position: absolute;
+      bottom: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 6px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
     #help { background: linear-gradient(160deg, var(--dark) 0%, #2A0808 100%); position: relative; overflow: hidden; }
     .glow { position: absolute; border-radius: 50%; pointer-events: none; }
     .glow-1 { width:600px; height:600px; top:-200px; left:-200px; background:radial-gradient(circle,rgba(245,200,0,0.11) 0%,transparent 70%); }
@@ -703,6 +755,10 @@
               <div class="program-card-back-content">
               </div>
             </div>
+          </div>
+          <div class="tap-indicator" id="tap-hint">
+            <div class="hand-icon">👆</div>
+            <div class="tap-text">Tap to see pictures</div>
           </div>
         </div>
 
@@ -1174,9 +1230,39 @@
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     if (isTouchDevice) {
+      // Show tap indicator when programs section is in view
+      const tapIndicator = document.getElementById('tap-hint');
+      const programsSection = document.getElementById('programs');
+      let hasInteracted = localStorage.getItem('programCardsInteracted') === 'true';
+
+      if (!hasInteracted && tapIndicator && programsSection) {
+        const programsObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !hasInteracted) {
+              // Show the tap indicator after a brief delay
+              setTimeout(() => {
+                tapIndicator.classList.add('show');
+              }, 500);
+            } else {
+              tapIndicator.classList.remove('show');
+            }
+          });
+        }, { threshold: 0.3 });
+
+        programsObserver.observe(programsSection);
+      }
+
       programCards.forEach(card => {
         card.addEventListener('click', function(e) {
           e.preventDefault();
+
+          // Hide tap indicator on first interaction
+          if (!hasInteracted && tapIndicator) {
+            tapIndicator.classList.remove('show');
+            tapIndicator.classList.add('hide');
+            localStorage.setItem('programCardsInteracted', 'true');
+            hasInteracted = true;
+          }
 
           // Toggle active class on clicked card
           const isActive = this.classList.contains('active');
