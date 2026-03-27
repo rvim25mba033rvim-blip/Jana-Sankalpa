@@ -529,11 +529,94 @@
       * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
       .reveal { opacity: 1 !important; transform: none !important; }
     }
+
+    /* ── Desktop-mode suggestion banner (mobile only) ─────────── */
+    .desktop-tip {
+      display: none; /* shown via JS on mobile */
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 195;
+      background: linear-gradient(135deg, var(--dark) 0%, #2A0808 100%);
+      border-top: 2px solid var(--yellow);
+      padding: 14px 20px;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.40);
+    }
+    .desktop-tip.visible {
+      display: flex;
+    }
+    .desktop-tip-icon {
+      font-size: 26px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .desktop-tip-body {
+      flex: 1;
+    }
+    .desktop-tip-body strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--yellow);
+      margin-bottom: 3px;
+    }
+    .desktop-tip-body p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .desktop-tip-steps {
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 5px;
+      padding-left: 14px;
+    }
+    .desktop-tip-steps li { margin-bottom: 2px; }
+    .desktop-tip-close {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(245,200,0,0.35);
+      border-radius: 50%;
+      color: var(--yellow);
+      cursor: pointer;
+      flex-shrink: 0;
+      font-size: 16px;
+      height: 30px;
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .desktop-tip-close:hover,
+    .desktop-tip-close:focus-visible {
+      background: rgba(245,200,0,0.20);
+      transform: scale(1.12);
+    }
+    @media (min-width: 769px) {
+      .desktop-tip { display: none !important; }
+    }
   </style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
 <div class="flag-stripe" aria-hidden="true"></div>
+
+<!-- Mobile desktop-mode suggestion banner -->
+<div class="desktop-tip" id="desktopTip" role="status" aria-live="polite" aria-label="Viewing tip" hidden>
+  <span class="desktop-tip-icon" aria-hidden="true">🖥️</span>
+  <div class="desktop-tip-body">
+    <strong>Best viewed on Desktop / PC</strong>
+    <p>For the full experience, open this site on a PC or switch your browser to <em>Desktop mode</em>:</p>
+    <ul class="desktop-tip-steps">
+      <li><strong>Chrome Android</strong> — tap ⋮ → <em>Desktop site</em></li>
+      <li><strong>Safari iPhone</strong> — tap <strong>AA</strong> → <em>Request Desktop Website</em></li>
+    </ul>
+  </div>
+  <button class="desktop-tip-close" id="desktopTipClose" aria-label="Dismiss tip">✕</button>
+</div>
 
 <nav id="nav" aria-label="Primary">
   <a class="nav-logo" href="#home" aria-label="Go to top">
@@ -1363,6 +1446,43 @@
         });
       });
     }
+  })();
+
+  /* ── Mobile desktop-mode suggestion banner ──────────────────── */
+  (function () {
+    var STORAGE_KEY = 'desktopTipDismissed';
+    var tip  = document.getElementById('desktopTip');
+    var btn  = document.getElementById('desktopTipClose');
+    if (!tip || !btn) return;
+
+    function lsGet(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+    function lsSet(key, val) { try { localStorage.setItem(key, val); } catch (e) { /* ignore */ } }
+
+    var mql = window.matchMedia('(max-width: 768px)');
+
+    function updateVisibility() {
+      if (mql.matches && !lsGet(STORAGE_KEY)) {
+        tip.removeAttribute('hidden');
+        tip.classList.add('visible');
+      } else {
+        tip.classList.remove('visible');
+        tip.hidden = true;
+      }
+    }
+
+    updateVisibility();
+    mql.addEventListener('change', updateVisibility);
+
+    function dismiss() {
+      tip.classList.remove('visible');
+      tip.hidden = true;
+      lsSet(STORAGE_KEY, '1');
+    }
+
+    btn.addEventListener('click', dismiss);
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismiss(); }
+    });
   })();
 </script>
 </body>
