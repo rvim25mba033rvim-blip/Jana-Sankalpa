@@ -1274,7 +1274,13 @@
         <h3>Reach Out to Us 📩</h3>
         <p>Have questions or want to get involved? Fill out the form below and we'll get back to you soon.</p>
 
-        <form id="contactForm">
+        <form id="contactForm" action="https://formsubmit.co/rm725366@gmail.com" method="POST">
+          <!-- FormSubmit Configuration -->
+          <input type="hidden" name="_subject" value="New Contact Form Submission - Jana Sankalpa">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="box">
+          <input type="text" name="_honey" style="display:none">
+
           <div class="form-group">
             <label for="contactName">Name<span class="required">*</span></label>
             <input type="text" id="contactName" name="name" class="form-input" required placeholder="Your full name">
@@ -1299,12 +1305,12 @@
             <label for="contactReason">Reason for Reaching Out<span class="required">*</span></label>
             <select id="contactReason" name="reason" class="form-select" required>
               <option value="">Select one...</option>
-              <option value="programs">Information about our programs</option>
-              <option value="volunteering">Volunteering</option>
-              <option value="donation">Donation/Sponsorships</option>
-              <option value="partnership">Partnership/Collaboration</option>
-              <option value="general">General Enquiry</option>
-              <option value="other">Other</option>
+              <option value="Information about our programs">Information about our programs</option>
+              <option value="Volunteering">Volunteering</option>
+              <option value="Donation/Sponsorships">Donation/Sponsorships</option>
+              <option value="Partnership/Collaboration">Partnership/Collaboration</option>
+              <option value="General Enquiry">General Enquiry</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
@@ -1645,10 +1651,8 @@
 
   /* ── Contact Form Handler ────────────────────────────────────── */
   (function() {
-    const form = document.getElementById('contactForm');
     const wordCountSpan = document.getElementById('wordCount');
     const messageTextarea = document.getElementById('contactMessage');
-    const feedbackDiv = document.getElementById('formFeedback');
 
     // Word counter for message textarea
     if (messageTextarea && wordCountSpan) {
@@ -1663,59 +1667,6 @@
           this.value = trimmedText;
           wordCountSpan.textContent = '400';
         }
-      });
-    }
-
-    // Form submission handler
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const name = document.getElementById('contactName').value.trim();
-        const phone = document.getElementById('contactPhone').value.trim();
-        const email = document.getElementById('contactEmail').value.trim();
-        const city = document.getElementById('contactCity').value.trim();
-        const reason = document.getElementById('contactReason').value;
-        const message = document.getElementById('contactMessage').value.trim();
-
-        // Get reason text for display
-        const reasonSelect = document.getElementById('contactReason');
-        const reasonText = reasonSelect.options[reasonSelect.selectedIndex].text;
-
-        // Construct email body
-        const emailBody = `
-Contact Form Submission - Jana Sankalpa Seva Trust
-
-Name: ${name}
-Phone: ${phone}
-Email: ${email || 'Not provided'}
-City/Location: ${city || 'Not provided'}
-Reason: ${reasonText}
-
-Message:
-${message || 'No message provided'}
-
----
-Sent from Jana Sankalpa website contact form
-        `.trim();
-
-        // Create mailto link
-        const mailtoLink = 'mailto:rm725366@gmail.com' +
-          '?subject=' + encodeURIComponent('Contact Form: ' + reasonText) +
-          '&body=' + encodeURIComponent(emailBody);
-
-        // Open email client
-        window.location.href = mailtoLink;
-
-        // Show success message
-        feedbackDiv.innerHTML = '<div class="form-message success">✅ Opening your email client... Please send the email to complete your message.</div>';
-
-        // Reset form after a delay
-        setTimeout(function() {
-          form.reset();
-          wordCountSpan.textContent = '0';
-          feedbackDiv.innerHTML = '';
-        }, 5000);
       });
     }
   })();
