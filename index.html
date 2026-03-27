@@ -461,6 +461,24 @@
     .social-handle { font-size: 12px; color: var(--muted); }
     .s-arrow { color: var(--red); font-size: 18px; font-weight: 700; }
 
+    .contact-form-panel { background: var(--cream); border: 1px solid rgba(204,34,34,0.16); border-radius: 24px; padding: 38px; box-shadow: 0 8px 36px rgba(204,34,34,0.07); margin-top: 48px; }
+    .contact-form-panel h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .contact-form-panel > p { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+    .form-group label .required { color: var(--red); margin-left: 3px; }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 16px; border: 1px solid rgba(204,34,34,0.18); border-radius: 12px; font-family: inherit; font-size: 14px; color: var(--dark); background: var(--white); transition: all 0.25s; box-sizing: border-box; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(204,34,34,0.1); }
+    .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+    .form-textarea::placeholder { color: var(--muted); opacity: 0.6; }
+    .char-count { display: block; text-align: right; font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .form-btn { background: linear-gradient(135deg, var(--red), var(--red-deep)); color: var(--white); padding: 14px 32px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(204,34,34,0.32); transition: all 0.25s; width: 100%; }
+    .form-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(204,34,34,0.45); }
+    .form-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .form-message { padding: 12px 16px; border-radius: 12px; margin-top: 16px; font-size: 14px; text-align: center; }
+    .form-message.success { background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.3); color: #2E7D32; }
+    .form-message.error { background: rgba(244,67,54,0.1); border: 1px solid rgba(244,67,54,0.3); color: #C62828; }
+
     footer { background: var(--dark); color: rgba(255,255,255,0.58); padding: 72px 24px 36px; }
     .footer-flag-bar { height: 5px; border-radius: 3px; background: linear-gradient(to right, var(--yellow) 50%, var(--red) 50%); max-width: 1180px; margin: 0 auto 52px; }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 52px; max-width: 1180px; margin: 0 auto 52px; }
@@ -516,6 +534,7 @@
       .donate-box    { padding: 32px 20px; }
       .vm-card       { padding: 32px 26px; }
       .social-panel  { padding: 26px 20px; }
+      .contact-form-panel { padding: 26px 20px; }
       .fab           { bottom: 18px; right: 18px; padding: 11px 18px; font-size: 13px; }
     }
     @media (max-width: 480px) {
@@ -1250,6 +1269,56 @@
           </div>
         </div>
       </div>
+
+      <div class="contact-form-panel reveal" style="transition-delay:.4s">
+        <h3>Reach Out to Us 📩</h3>
+        <p>Have questions or want to get involved? Fill out the form below and we'll get back to you soon.</p>
+
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="contactName">Name<span class="required">*</span></label>
+            <input type="text" id="contactName" name="name" class="form-input" required placeholder="Your full name">
+          </div>
+
+          <div class="form-group">
+            <label for="contactPhone">Phone<span class="required">*</span></label>
+            <input type="tel" id="contactPhone" name="phone" class="form-input" required placeholder="+91 98765 43210" pattern="[0-9+\s\-()]+">
+          </div>
+
+          <div class="form-group">
+            <label for="contactEmail">Email</label>
+            <input type="email" id="contactEmail" name="email" class="form-input" placeholder="your.email@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="contactCity">City/Location</label>
+            <input type="text" id="contactCity" name="city" class="form-input" placeholder="Your city or location">
+          </div>
+
+          <div class="form-group">
+            <label for="contactReason">Reason for Reaching Out<span class="required">*</span></label>
+            <select id="contactReason" name="reason" class="form-select" required>
+              <option value="">Select one...</option>
+              <option value="programs">Information about our programs</option>
+              <option value="volunteering">Volunteering</option>
+              <option value="donation">Donation/Sponsorships</option>
+              <option value="partnership">Partnership/Collaboration</option>
+              <option value="general">General Enquiry</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" name="message" class="form-textarea" maxlength="2800" placeholder="Share your thoughts, questions, or how you'd like to help... (up to 400 words)"></textarea>
+            <span class="char-count"><span id="wordCount">0</span> / 400 words</span>
+          </div>
+
+          <button type="submit" class="form-btn">Send Message</button>
+
+          <div id="formFeedback"></div>
+        </form>
+      </div>
     </div>
   </section>
 </main>
@@ -1572,6 +1641,83 @@
     btn.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismiss(); }
     });
+  })();
+
+  /* ── Contact Form Handler ────────────────────────────────────── */
+  (function() {
+    const form = document.getElementById('contactForm');
+    const wordCountSpan = document.getElementById('wordCount');
+    const messageTextarea = document.getElementById('contactMessage');
+    const feedbackDiv = document.getElementById('formFeedback');
+
+    // Word counter for message textarea
+    if (messageTextarea && wordCountSpan) {
+      messageTextarea.addEventListener('input', function() {
+        const text = this.value.trim();
+        const words = text === '' ? 0 : text.split(/\s+/).length;
+        wordCountSpan.textContent = words;
+
+        // Limit to 400 words
+        if (words > 400) {
+          const trimmedText = text.split(/\s+/).slice(0, 400).join(' ');
+          this.value = trimmedText;
+          wordCountSpan.textContent = '400';
+        }
+      });
+    }
+
+    // Form submission handler
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('contactName').value.trim();
+        const phone = document.getElementById('contactPhone').value.trim();
+        const email = document.getElementById('contactEmail').value.trim();
+        const city = document.getElementById('contactCity').value.trim();
+        const reason = document.getElementById('contactReason').value;
+        const message = document.getElementById('contactMessage').value.trim();
+
+        // Get reason text for display
+        const reasonSelect = document.getElementById('contactReason');
+        const reasonText = reasonSelect.options[reasonSelect.selectedIndex].text;
+
+        // Construct email body
+        const emailBody = `
+Contact Form Submission - Jana Sankalpa Seva Trust
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email || 'Not provided'}
+City/Location: ${city || 'Not provided'}
+Reason: ${reasonText}
+
+Message:
+${message || 'No message provided'}
+
+---
+Sent from Jana Sankalpa website contact form
+        `.trim();
+
+        // Create mailto link
+        const mailtoLink = 'mailto:janasankalpasevatrust@gmail.com' +
+          '?subject=' + encodeURIComponent('Contact Form: ' + reasonText) +
+          '&body=' + encodeURIComponent(emailBody);
+
+        // Open email client
+        window.location.href = mailtoLink;
+
+        // Show success message
+        feedbackDiv.innerHTML = '<div class="form-message success">✅ Opening your email client... Please send the email to complete your message.</div>';
+
+        // Reset form after a delay
+        setTimeout(function() {
+          form.reset();
+          wordCountSpan.textContent = '0';
+          feedbackDiv.innerHTML = '';
+        }, 5000);
+      });
+    }
   })();
 </script>
 </body>
