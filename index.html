@@ -507,6 +507,17 @@
     .fab:hover { transform: translateY(-3px) scale(1.04); }
     @keyframes fabP { 0%,100%{box-shadow:0 6px 24px rgba(204,34,34,0.50)} 50%{box-shadow:0 6px 44px rgba(204,34,34,0.75)} }
 
+    .fab-whatsapp {
+      position: fixed; bottom: 88px; right: 26px; z-index: 180;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: var(--white); padding: 13px 24px; border-radius: 50px;
+      font-size: 14px; font-weight: 700; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.50);
+      display: flex; align-items: center; gap: 8px; animation: fabWhatsAppP 2.8s ease-in-out infinite; transition: transform 0.2s;
+    }
+    .fab-whatsapp:hover { transform: translateY(-3px) scale(1.04); }
+    @keyframes fabWhatsAppP { 0%,100%{box-shadow:0 6px 24px rgba(37,211,102,0.50)} 50%{box-shadow:0 6px 44px rgba(37,211,102,0.75)} }
+
     @media (max-width: 1024px) {
       .members-grid  { grid-template-columns: repeat(2,1fr); }
       .help-grid     { grid-template-columns: repeat(2,1fr); }
@@ -536,6 +547,7 @@
       .social-panel  { padding: 26px 20px; }
       .contact-form-panel { padding: 26px 20px; }
       .fab           { bottom: 18px; right: 18px; padding: 11px 18px; font-size: 13px; }
+      .fab-whatsapp  { bottom: 72px; right: 18px; padding: 11px 18px; font-size: 13px; }
     }
     @media (max-width: 480px) {
       .members-grid { grid-template-columns: 1fr; }
@@ -1368,6 +1380,7 @@
   </div>
 </footer>
 
+<a href="https://wa.me/919380512019" target="_blank" rel="noopener noreferrer" class="fab-whatsapp" aria-label="Chat with us on WhatsApp">💬 WhatsApp</a>
 <a href="#help" class="fab" aria-label="Jump to donation section">❤️ Donate Now</a>
 
 <script>
